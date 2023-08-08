@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:delivery_boy/pages/route_map.dart';
 import 'package:delivery_boy/services/page_services/trip_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoding/geocoding.dart';
 
 import 'package:delivery_boy/constant/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/Input/order.dart';
+import '../../services/notification_service.dart';
 import '../home.dart';
 
 class NewOrder extends StatefulWidget {
@@ -24,6 +25,7 @@ class NewOrder extends StatefulWidget {
 
 class _NewOrderState extends State<NewOrder> {
   TripInfo trip = TripInfo();
+  NotificationService notificationService = NotificationService();
   final deliveryList = [
     {
       'orderId': 'OID123456789',
@@ -88,150 +90,150 @@ class _NewOrderState extends State<NewOrder> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    rejectreasonDialog() {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return Dialog(
-            elevation: 0.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Wrap(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: width,
-                      padding: EdgeInsets.all(fixPadding),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10.0),
-                          topLeft: Radius.circular(10.0),
-                        ),
-                      ),
-                      child: Text(
-                        'Reason to Reject',
-                        style: wbuttonWhiteTextStyle,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(fixPadding),
-                      alignment: Alignment.center,
-                      child: Text('Write a specific reason to reject order'),
-                    ),
-                    Container(
-                      width: width,
-                      padding: EdgeInsets.all(fixPadding),
-                      child: TextField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 2,
-                        decoration: InputDecoration(
-                          hintText: 'Enter Reason Here',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                          fillColor: Colors.grey.withOpacity(0.1),
-                          filled: true,
-                        ),
-                      ),
-                    ),
-                    heightSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            width: (width / 3.5),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Text(
-                              'Cancel',
-                              style: buttonBlackTextStyle,
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            width: (width / 3.5),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Text(
-                              'Send',
-                              style: wbuttonWhiteTextStyle,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    heightSpace,
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    }
+    // rejectreasonDialog() {
+    //   showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return Dialog(
+    //         elevation: 0.0,
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10.0)),
+    //         child: Wrap(
+    //           children: <Widget>[
+    //             Column(
+    //               mainAxisAlignment: MainAxisAlignment.start,
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: <Widget>[
+    //                 Container(
+    //                   width: width,
+    //                   padding: EdgeInsets.all(fixPadding),
+    //                   alignment: Alignment.center,
+    //                   decoration: BoxDecoration(
+    //                     color: primaryColor,
+    //                     borderRadius: BorderRadius.only(
+    //                       topRight: Radius.circular(10.0),
+    //                       topLeft: Radius.circular(10.0),
+    //                     ),
+    //                   ),
+    //                   child: Text(
+    //                     'Reason to Reject',
+    //                     style: wbuttonWhiteTextStyle,
+    //                   ),
+    //                 ),
+    //                 Container(
+    //                   padding: EdgeInsets.all(fixPadding),
+    //                   alignment: Alignment.center,
+    //                   child: Text('Write a specific reason to reject order'),
+    //                 ),
+    //                 Container(
+    //                   width: width,
+    //                   padding: EdgeInsets.all(fixPadding),
+    //                   child: TextField(
+    //                     keyboardType: TextInputType.multiline,
+    //                     maxLines: 2,
+    //                     decoration: InputDecoration(
+    //                       hintText: 'Enter Reason Here',
+    //                       border: OutlineInputBorder(
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                         borderSide: BorderSide(color: Colors.transparent),
+    //                       ),
+    //                       fillColor: Colors.grey.withOpacity(0.1),
+    //                       filled: true,
+    //                     ),
+    //                   ),
+    //                 ),
+    //                 heightSpace,
+    //                 Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                   children: <Widget>[
+    //                     InkWell(
+    //                       onTap: () {
+    //                         Navigator.pop(context);
+    //                       },
+    //                       child: Container(
+    //                         width: (width / 3.5),
+    //                         alignment: Alignment.center,
+    //                         padding: EdgeInsets.all(10.0),
+    //                         decoration: BoxDecoration(
+    //                           color: Colors.grey[300],
+    //                           borderRadius: BorderRadius.circular(5.0),
+    //                         ),
+    //                         child: Text(
+    //                           'Cancel',
+    //                           style: buttonBlackTextStyle,
+    //                         ),
+    //                       ),
+    //                     ),
+    //                     InkWell(
+    //                       onTap: () {
+    //                         Navigator.pop(context);
+    //                       },
+    //                       child: Container(
+    //                         width: (width / 3.5),
+    //                         alignment: Alignment.center,
+    //                         padding: EdgeInsets.all(10.0),
+    //                         decoration: BoxDecoration(
+    //                           color: primaryColor,
+    //                           borderRadius: BorderRadius.circular(5.0),
+    //                         ),
+    //                         child: Text(
+    //                           'Send',
+    //                           style: wbuttonWhiteTextStyle,
+    //                         ),
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 heightSpace,
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
 
-    loadingDialog() {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return Dialog(
-            elevation: 0.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Container(
-              height: 150.0,
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SpinKitRing(
-                    color: primaryColor,
-                    lineWidth: 1.5,
-                    size: 35.0,
-                  ),
-                  heightSpace,
-                  heightSpace,
-                  Text('Please Wait..'),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    }
+    // loadingDialog() {
+    //   showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return Dialog(
+    //         elevation: 0.0,
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10.0)),
+    //         child: Container(
+    //           height: 150.0,
+    //           padding: EdgeInsets.all(20.0),
+    //           child: Column(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             crossAxisAlignment: CrossAxisAlignment.center,
+    //             children: <Widget>[
+    //               SpinKitRing(
+    //                 color: primaryColor,
+    //                 lineWidth: 1.5,
+    //                 size: 35.0,
+    //               ),
+    //               heightSpace,
+    //               heightSpace,
+    //               Text('Please Wait..'),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
 
     orderAcceptDialog(Order order) async {
       String pickupAddress =
-          await getCompleteAddress(order.pickup_lat!, order.pickup_long!);
+          await getCompleteAddress(order.pickupLat!, order.pickupLong!);
       String dropAddress =
-          await getCompleteAddress(order.drop_lat!, order.drop_long!);
+          await getCompleteAddress(order.dropLat!, order.dropLong!);
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -378,6 +380,7 @@ class _NewOrderState extends State<NewOrder> {
                       // ),
                       //Order End
                       // Location Start
+                      
                       Container(
                         margin: EdgeInsets.all(fixPadding),
                         decoration: BoxDecoration(
@@ -557,6 +560,43 @@ class _NewOrderState extends State<NewOrder> {
                       // ),
                       //Customer End
 
+                      // show in map start
+
+                      Row(
+                        children: [
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RouteMap(
+                                    sourceLat: double.parse(
+                                        order.pickupLat.toString()),
+                                    sourceLang: double.parse(
+                                        order.pickupLong.toString()),
+                                    destinationLat:
+                                        double.parse(order.dropLat.toString()),
+                                    destinationLang:
+                                        double.parse(order.dropLong.toString()),
+                                    driverLat: widget.currentLocation[0],
+                                    driverLang: widget.currentLocation[1],
+                                  ),
+                                ));
+                              },
+                              child: Text(
+                                'show in map',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              style: TextButton.styleFrom(
+                                  foregroundColor: Colors.blue),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      // show in map end
+
                       // Payment Start
                       Container(
                         margin: EdgeInsets.all(fixPadding),
@@ -645,10 +685,16 @@ class _NewOrderState extends State<NewOrder> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           InkWell(
-                            onTap: () {
+                            onTap: () async {
                               // setState(() {
                               //   // deliveryList.removeAt(index);
                               // });
+
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              String token = prefs.getString('access_token')!;
+                              notificationService.getSilentTrips(
+                                  order.tripID!, token);
                               Navigator.pop(context);
                               // rejectreasonDialog();
                             },
@@ -808,7 +854,7 @@ class _NewOrderState extends State<NewOrder> {
                             width: (width - fixPadding * 4.0) / 3.2,
                             child: FutureBuilder(
                               future: getCompleteAddress(
-                                  item.pickup_lat!, item.pickup_long!),
+                                  item.pickupLat!, item.pickupLong!),
                               initialData: "Loading...",
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {
@@ -846,7 +892,7 @@ class _NewOrderState extends State<NewOrder> {
                             width: (width - fixPadding * 4.0) / 3.2,
                             child: FutureBuilder(
                               future: getCompleteAddress(
-                                  item.drop_lat!, item.drop_long!),
+                                  item.dropLat!, item.dropLong!),
                               initialData: "Loading...",
                               builder: (BuildContext context,
                                   AsyncSnapshot snapshot) {

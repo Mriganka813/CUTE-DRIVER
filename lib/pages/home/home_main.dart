@@ -6,7 +6,7 @@ import 'package:delivery_boy/services/page_services/trip_info.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery_boy/constant/constant.dart';
 import 'package:delivery_boy/pages/home/new_order.dart';
-import 'package:delivery_boy/pages/home/active_order.dart';
+
 import 'package:delivery_boy/pages/home/history.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
@@ -29,8 +29,8 @@ class _HomeMainState extends State<HomeMain> {
   List<double> _currentLocation = [];
   getLoc() async {
     // loadingDialog();
-    LocationPermission permission;
-    permission = await Geolocator.requestPermission();
+    // LocationPermission permission;
+    // permission = await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition();
     final prefs = await SharedPreferences.getInstance();
     // Navigator.pop(context, true);
@@ -108,6 +108,7 @@ class _HomeMainState extends State<HomeMain> {
 
         try {
           List<Order> _initorder = await trip.getTripInfo(token, value);
+          print('init=$_initorder');
 
           // populate with 'waiting for driver status'
           setState(() {

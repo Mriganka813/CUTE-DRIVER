@@ -88,15 +88,16 @@ class _RouteMapState extends State<RouteMap> {
   }
 
   updateDriverLocation(double lat, double lang) {
-    setState(() {
-      driverLocatioon = LatLng(lat, lang);
-      _markers.removeWhere(
-          (element) => element.markerId.value == 'driverlocationPin');
-      _markers.add(Marker(
-          markerId: MarkerId('driverlocationPin'),
-          position: driverLocatioon!,
-          icon: driverIcon!));
-    });
+    if (mounted)
+      setState(() {
+        driverLocatioon = LatLng(lat, lang);
+        _markers.removeWhere(
+            (element) => element.markerId.value == 'driverlocationPin');
+        _markers.add(Marker(
+            markerId: MarkerId('driverlocationPin'),
+            position: driverLocatioon!,
+            icon: driverIcon!));
+      });
   }
 
   @override
@@ -142,25 +143,26 @@ class _RouteMapState extends State<RouteMap> {
   }
 
   void setMapPins() {
-    setState(() {
-      // source pin
-      _markers.add(Marker(
-          markerId: MarkerId('sourcePin'),
-          position: sourceLocatioon!,
-          icon: sourceIcon!));
-      // destination pin
-      _markers.add(Marker(
-          markerId: MarkerId('destPin'),
-          position: destLocatioon!,
-          icon: destinationIcon!));
-      // driver location pin
-      if (widget.driverLat != null) {
+    if (mounted)
+      setState(() {
+        // source pin
         _markers.add(Marker(
-            markerId: MarkerId('driverlocationPin'),
-            position: driverLocatioon!,
-            icon: driverIcon!));
-      }
-    });
+            markerId: MarkerId('sourcePin'),
+            position: sourceLocatioon!,
+            icon: sourceIcon!));
+        // destination pin
+        _markers.add(Marker(
+            markerId: MarkerId('destPin'),
+            position: destLocatioon!,
+            icon: destinationIcon!));
+        // driver location pin
+        if (widget.driverLat != null) {
+          _markers.add(Marker(
+              markerId: MarkerId('driverlocationPin'),
+              position: driverLocatioon!,
+              icon: driverIcon!));
+        }
+      });
   }
 
   setPolylines() async {
@@ -180,20 +182,21 @@ class _RouteMapState extends State<RouteMap> {
       });
     }
 
-    setState(() {
-      // create a Polyline instance
-      // with an id, an RGB color and the list of LatLng pairs
-      Polyline polyline = Polyline(
-          polylineId: PolylineId("poly"),
-          width: 4,
-          color: Colors.black,
-          points: polylineCoordinates);
+    if (mounted)
+      setState(() {
+        // create a Polyline instance
+        // with an id, an RGB color and the list of LatLng pairs
+        Polyline polyline = Polyline(
+            polylineId: PolylineId("poly"),
+            width: 4,
+            color: Colors.black,
+            points: polylineCoordinates);
 
-      // add the constructed polyline as a set of points
-      // to the polyline set, which will eventually
-      // end up showing up on the map
-      _polylines.add(polyline);
-    });
+        // add the constructed polyline as a set of points
+        // to the polyline set, which will eventually
+        // end up showing up on the map
+        _polylines.add(polyline);
+      });
   }
 }
 

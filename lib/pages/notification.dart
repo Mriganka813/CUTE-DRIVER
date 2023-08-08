@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:delivery_boy/constant/constant.dart';
 
 class Notifications extends StatefulWidget {
@@ -21,7 +20,6 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: scaffoldBgColor,
       appBar: AppBar(

@@ -5,9 +5,31 @@ import 'package:delivery_boy/services/locator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
+
+  await flutterLocalNotificationsPlugin.initialize(
+    InitializationSettings(
+      // Specify the initialization settings for Android and iOS
+      android: AndroidInitializationSettings(
+          '@mipmap/launcher_icon'), // Replace with your app's launcher icon
+    ),
+    onDidReceiveNotificationResponse: (details) {
+      print(details.payload);
+      print(details.notificationResponseType.name);
+    },
+  );
 
   locator.registerLazySingleton(() => GlobalServices());
   await Firebase.initializeApp();

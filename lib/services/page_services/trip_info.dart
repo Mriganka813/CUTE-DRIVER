@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:delivery_boy/model/Input/driverMap.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/Input/order.dart';
 import '../api_v1.dart';
@@ -23,14 +19,16 @@ class TripInfo {
     if ((response.statusCode ?? 400) > 300) {
       return [];
     }
-    // print(response.data);
-    // print(response.data['trips'])
-    final _order = List.generate(
+    print(response.data);
+    print(response.data['trips']);
+    var _order = List.generate(
       response.data['trips'].length,
       (int index) => Order.fromMap(
         response.data['trips'][index],
       ),
     );
+    _order = _order.reversed.toList();
+    print(_order);
     return _order;
   }
 
@@ -42,7 +40,7 @@ class TripInfo {
     if ((response.statusCode ?? 400) > 300) {
       return {};
     }
-    // print(response.data);
+    print('accept=${response.data}');
 
     // start socket for very first time to update socket id to database
     IO.Socket socket;
@@ -78,7 +76,7 @@ class TripInfo {
         ),
       );
 
-      orderhistory = _order;
+      orderhistory = _order.reversed.toList();
       // print(_order[0].driver_lat);
       // print(_order[0].date);
       // print(_order[0].drop_lat);

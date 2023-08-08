@@ -1,5 +1,4 @@
 import 'package:delivery_boy/constant/constant.dart';
-import 'package:delivery_boy/pages/login_signup/login.dart';
 import 'package:delivery_boy/pages/profile/privacypolicy.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,22 +18,23 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   late AuthService auth;
-  late User user;
+  late UserModel user;
 
   @override
   void initState() {
     super.initState();
     auth = AuthService();
-    user = User();
+    user = UserModel();
     fetchuser();
   }
 
   fetchuser() async {
-    User usr = await auth.getUser();
+    UserModel usr = await auth.getUser();
+
     setState(() {
       user = usr;
     });
-    print(user.phoneNumber);
+    print(user.phoneNum);
   }
 
   @override
@@ -173,16 +173,14 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            user.userName == null
-                                ? 'loading...'
-                                : user.userName!,
+                            user.name == null ? 'loading...' : user.name!,
                             style: headingStyle,
                           ),
                           heightSpace,
                           Text(
-                            user.phoneNumber == null
+                            user.phoneNum == null
                                 ? 'loading...'
-                                : user.phoneNumber!.toString(),
+                                : user.phoneNum!.toString(),
                             style: lightGreyStyle,
                           ),
                         ],

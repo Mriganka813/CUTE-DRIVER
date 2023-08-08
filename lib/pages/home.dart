@@ -6,7 +6,8 @@ import 'package:delivery_boy/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:delivery_boy/pages/home/home_main.dart';
-import 'package:delivery_boy/pages/wallet.dart';
+
+import '../services/background_service.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     currentIndex = 0;
+    initializeService();
   }
 
   void changePage(int index) {

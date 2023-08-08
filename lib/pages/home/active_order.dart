@@ -1,6 +1,5 @@
 import 'package:delivery_boy/constant/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:delivery_boy/pages/map.dart';
 
 class ActiveOrder extends StatefulWidget {
   @override

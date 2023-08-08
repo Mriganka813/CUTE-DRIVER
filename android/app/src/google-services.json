@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1025146175164-muqmle8v31ed46b4hf382d2tt477pfhv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cute.delivery",
+            "certificate_hash": "1a54369784c49cd9a16a26cdb5485c41bdaee4b2"
+          }
+        },
+        {
           "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
           "client_type": 3
         }

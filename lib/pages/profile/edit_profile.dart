@@ -4,7 +4,7 @@ import 'package:delivery_boy/constant/constant.dart';
 import '../../model/Input/user.dart';
 
 class EditProfile extends StatefulWidget {
-  User? user;
+  UserModel? user;
   EditProfile({required this.user});
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -16,17 +16,17 @@ class _EditProfileState extends State<EditProfile> {
   late String email;
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
-  var emailController = TextEditingController();
+  // var emailController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    name = widget.user!.userName!;
-    phone = widget.user!.phoneNumber.toString();
-    email = widget.user!.address!;
+    name = widget.user!.name!;
+    phone = widget.user!.phoneNum.toString();
+    // email = widget.user!.address!;
     nameController.text = name;
     phoneController.text = phone;
-    emailController.text = email;
+    // emailController.text = email;
   }
 
   @override
@@ -119,115 +119,115 @@ class _EditProfileState extends State<EditProfile> {
       );
     }
 
-    changePassword() {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return Dialog(
-            elevation: 0.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Container(
-              height: 295.0,
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Change Your Password",
-                    style: headingStyle,
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  TextField(
-                    obscureText: true,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Signika Negative',
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Old Password',
-                      hintStyle: greyHeadingStyle,
-                    ),
-                  ),
-                  TextField(
-                    obscureText: true,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Signika Negative',
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'New Password',
-                      hintStyle: greyHeadingStyle,
-                    ),
-                  ),
-                  TextField(
-                    obscureText: true,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Signika Negative',
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Confirm New Password',
-                      hintStyle: greyHeadingStyle,
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: (width / 3.5),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Cancel',
-                            style: buttonBlackTextStyle,
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: (width / 3.5),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Okay',
-                            style: wbuttonWhiteTextStyle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    }
+    // changePassword() {
+    //   showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return Dialog(
+    //         elevation: 0.0,
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10.0)),
+    //         child: Container(
+    //           height: 295.0,
+    //           padding: EdgeInsets.all(20.0),
+    //           child: Column(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             crossAxisAlignment: CrossAxisAlignment.center,
+    //             children: <Widget>[
+    //               Text(
+    //                 "Change Your Password",
+    //                 style: headingStyle,
+    //               ),
+    //               SizedBox(
+    //                 height: 20.0,
+    //               ),
+    //               TextField(
+    //                 obscureText: true,
+    //                 style: TextStyle(
+    //                   fontSize: 16.0,
+    //                   fontWeight: FontWeight.w700,
+    //                   fontFamily: 'Signika Negative',
+    //                 ),
+    //                 decoration: InputDecoration(
+    //                   hintText: 'Old Password',
+    //                   hintStyle: greyHeadingStyle,
+    //                 ),
+    //               ),
+    //               TextField(
+    //                 obscureText: true,
+    //                 style: TextStyle(
+    //                   fontSize: 16.0,
+    //                   fontWeight: FontWeight.w700,
+    //                   fontFamily: 'Signika Negative',
+    //                 ),
+    //                 decoration: InputDecoration(
+    //                   hintText: 'New Password',
+    //                   hintStyle: greyHeadingStyle,
+    //                 ),
+    //               ),
+    //               TextField(
+    //                 obscureText: true,
+    //                 style: TextStyle(
+    //                   fontSize: 16.0,
+    //                   fontWeight: FontWeight.w700,
+    //                   fontFamily: 'Signika Negative',
+    //                 ),
+    //                 decoration: InputDecoration(
+    //                   hintText: 'Confirm New Password',
+    //                   hintStyle: greyHeadingStyle,
+    //                 ),
+    //               ),
+    //               SizedBox(height: 20.0),
+    //               Row(
+    //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                 children: <Widget>[
+    //                   InkWell(
+    //                     onTap: () {
+    //                       Navigator.pop(context);
+    //                     },
+    //                     child: Container(
+    //                       width: (width / 3.5),
+    //                       alignment: Alignment.center,
+    //                       padding: EdgeInsets.all(10.0),
+    //                       decoration: BoxDecoration(
+    //                         color: Colors.grey[300],
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                       ),
+    //                       child: Text(
+    //                         'Cancel',
+    //                         style: buttonBlackTextStyle,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   InkWell(
+    //                     onTap: () {
+    //                       Navigator.pop(context);
+    //                     },
+    //                     child: Container(
+    //                       width: (width / 3.5),
+    //                       alignment: Alignment.center,
+    //                       padding: EdgeInsets.all(10.0),
+    //                       decoration: BoxDecoration(
+    //                         color: primaryColor,
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                       ),
+    //                       child: Text(
+    //                         'Okay',
+    //                         style: wbuttonWhiteTextStyle,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
 
     changePhoneNumber() {
       showDialog(
@@ -315,91 +315,91 @@ class _EditProfileState extends State<EditProfile> {
       );
     }
 
-    changeEmail() {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return Dialog(
-            elevation: 0.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Container(
-              height: 200.0,
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Change Email",
-                    style: headingStyle,
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  TextField(
-                    controller: emailController,
-                    style: buttonBlackTextStyle,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Your Email Address',
-                      hintStyle: greyHeadingStyle,
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: (width / 3.5),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Cancel',
-                            style: buttonBlackTextStyle,
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            email = emailController.text;
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: Container(
-                          width: (width / 3.5),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Okay',
-                            style: wbuttonWhiteTextStyle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    }
+    // changeEmail() {
+    //   showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return Dialog(
+    //         elevation: 0.0,
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10.0)),
+    //         child: Container(
+    //           height: 200.0,
+    //           padding: EdgeInsets.all(20.0),
+    //           child: Column(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             crossAxisAlignment: CrossAxisAlignment.center,
+    //             children: <Widget>[
+    //               Text(
+    //                 "Change Email",
+    //                 style: headingStyle,
+    //               ),
+    //               SizedBox(
+    //                 height: 20.0,
+    //               ),
+    //               TextField(
+    //                 controller: emailController,
+    //                 style: buttonBlackTextStyle,
+    //                 keyboardType: TextInputType.emailAddress,
+    //                 decoration: InputDecoration(
+    //                   hintText: 'Enter Your Email Address',
+    //                   hintStyle: greyHeadingStyle,
+    //                 ),
+    //               ),
+    //               SizedBox(height: 20.0),
+    //               Row(
+    //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                 children: <Widget>[
+    //                   InkWell(
+    //                     onTap: () {
+    //                       Navigator.pop(context);
+    //                     },
+    //                     child: Container(
+    //                       width: (width / 3.5),
+    //                       alignment: Alignment.center,
+    //                       padding: EdgeInsets.all(10.0),
+    //                       decoration: BoxDecoration(
+    //                         color: Colors.grey[300],
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                       ),
+    //                       child: Text(
+    //                         'Cancel',
+    //                         style: buttonBlackTextStyle,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   InkWell(
+    //                     onTap: () {
+    //                       setState(() {
+    //                         email = emailController.text;
+    //                         Navigator.pop(context);
+    //                       });
+    //                     },
+    //                     child: Container(
+    //                       width: (width / 3.5),
+    //                       alignment: Alignment.center,
+    //                       padding: EdgeInsets.all(10.0),
+    //                       decoration: BoxDecoration(
+    //                         color: primaryColor,
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                       ),
+    //                       child: Text(
+    //                         'Okay',
+    //                         style: wbuttonWhiteTextStyle,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
 
     return Scaffold(
       backgroundColor: scaffoldBgColor,
@@ -488,10 +488,10 @@ class _EditProfileState extends State<EditProfile> {
               ),
               // Phone End
               // Email Start
-              InkWell(
-                onTap: changeEmail,
-                child: getTile('Address', email),
-              ),
+              // InkWell(
+              //   onTap: changeEmail,
+              //   child: getTile('Address', email),
+              // ),
               // Email End
             ],
           ),

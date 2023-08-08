@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,15 +44,15 @@ class AuthService {
     }
     // // print(response.statusCode);
     print(response.toString());
-    String user_id = response.data['user_id'];
+    String userId = response.data['user_id'];
 
-    // print(lat);
-    // print(lng);
-    // print(user_id);
+    print(lat);
+    print(lng);
+    print(userId);
     try {
       await ApiV1Service.postRequest(
         '/auth/signup/verify?lat=$lat&long=$lng',
-        data: {"user_id": user_id, "otp": "nhi2oo", "licenseNum": license},
+        data: {"user_id": userId, "otp": "nhi2oo", "licenseNum": license},
       );
     } catch (e) {
       print(e);
@@ -60,19 +61,19 @@ class AuthService {
 
     await signInRequest(input.phoneNumber!);
     // await saveCookie(response);
-    // return SignUpInput.fromMap(response.data['user']);
+    return SignUpInput.fromMap(response.data);
   }
 
   /// Save cookies after sign in/up
-  Future<void> saveCookie(Response response) async {
-    List<Cookie> cookies = [Cookie("token", response.data['token'])];
-    final cj = await ApiV1Service.getCookieJar();
-    await cj.saveFromResponse(Uri.parse(Const.apiUrl), cookies);
-  }
+  // Future<void> saveCookie(Response response) async {
+  //   List<Cookie> cookies = [Cookie("token", response.data['token'])];
+  //   final cj = await ApiV1Service.getCookieJar();
+  //   await cj.saveFromResponse(Uri.parse(Const.apiUrl), cookies);
+  // }
 
   ///
   Future<void> signOut() async {
-    await clearCookies();
+    // await clearCookies();
     await SharedPreferences.getInstance().then((prefs) {
       prefs.clear();
     });
@@ -80,14 +81,14 @@ class AuthService {
   }
 
   /// Clear cookies before log out
-  Future<void> clearCookies() async {
-    final cj = await ApiV1Service.getCookieJar();
-    await cj.deleteAll();
-  }
+  // Future<void> clearCookies() async {
+  //   final cj = await ApiV1Service.getCookieJar();
+  //   await cj.deleteAll();
+  // }
 
   /// Send sign in request
   ///
-  Future<User?> signInRequest(int phoneNum) async {
+  Future<uusr.UserModel?> signInRequest(int phoneNum) async {
     final prefs = await SharedPreferences.getInstance();
 
     final response = await ApiV1Service.postRequest(
@@ -101,25 +102,29 @@ class AuthService {
       return null;
     }
     var token = response.data['tokens'];
-    final String access_token = token['access'];
+    final String accessToken = token['access'];
+    final driverId = response.data['user']['_id'];
+    print(accessToken);
+    print(driverId);
     final String refresh_token = token['refresh'];
-    await prefs.setString('access_token', access_token);
+    await prefs.setString('access_token', accessToken);
+    await prefs.setString('driverId', driverId);
     await prefs.setString('refresh_token', refresh_token);
     print("toekn saved succesfully");
     return null;
-    // return User.fromMap(response.data['user']);
+    // return uusr.UserModel.fromJson(response.data);
   }
 
   /// get token from server
-  Future<uusr.User> getUser() async {
+  Future<uusr.UserModel> getUser() async {
     final prefs = await SharedPreferences.getInstance();
-    final String access_token = prefs.getString('access_token') ?? "";
-    uusr.User usr = uusr.User();
+    final String accessToken = prefs.getString('access_token') ?? "";
+    uusr.UserModel usr = uusr.UserModel();
     try {
-      await ApiV1Service.getRequest('/auth', token: access_token).then((value) {
-        print(value.data['user']);
-        usr = uusr.User.fromMap(value.data['user']);
-        return uusr.User.fromMap(value.data['user']);
+      await ApiV1Service.getRequest('/auth', token: accessToken).then((value) {
+        print(value.data);
+        usr = uusr.UserModel.fromJson(value.data);
+        return uusr.UserModel.fromJson(value.data);
       });
     } catch (e) {
       print("token expired");
@@ -142,6 +147,7 @@ class AuthService {
     if ((response.statusCode ?? 400) > 300) {
       return null;
     }
+
     final String access_token = response.data['token'];
     await prefs.setString('access_token', access_token);
     prefs.reload();

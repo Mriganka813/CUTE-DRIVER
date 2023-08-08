@@ -80,10 +80,12 @@ class _HistoryState extends State<History> {
         .then((value) => value.getString('access_token')!));
 
     // filter out the status : COMPLETED order
-    setState(() {
-      ride =
-          fetchride.where((element) => element.status == 'COMPLETED').toList();
-    });
+    if (mounted)
+      setState(() {
+        ride = fetchride
+            .where((element) => element.status == 'COMPLETED')
+            .toList();
+      });
   }
 
   Future<String> getCompleteAddress(String latitude, String longitude) async {

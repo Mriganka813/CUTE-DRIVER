@@ -24,6 +24,18 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _checkUpdate();
     // authStatus();
+
+    // Future.delayed(Duration.zero, () async {
+    //   final service = FlutterBackgroundService();
+    //   final isRunning = await service.isRunning();
+
+    //   if (isRunning) {
+    //     service.invoke('stopService');
+    //   } else {
+    //     service.startService();
+    //   }
+    // });
+    // FlutterBackgroundService().invoke('setAsForeground');
   }
 
   final newVersionPlus = NewVersionPlus();
@@ -43,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   getLoc() async {
-    LocationPermission permission;
+    // LocationPermission permission;
 
     // permission = await Geolocator.requestPermission();
     await Geolocator.checkPermission().then((value) {
@@ -63,10 +75,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> authStatus() async {
     await Future.delayed(const Duration(milliseconds: 3000));
     final prefs = await SharedPreferences.getInstance();
-    final String access_token = prefs.getString('access_token') ?? "";
+    final String accessToken = prefs.getString('access_token') ?? "";
     // final String refresh_token = prefs.getString('refresh_token') ?? "";
 
-    final isAuthenticated = access_token.isNotEmpty;
+    final isAuthenticated = accessToken.isNotEmpty;
 
     if (isAuthenticated) {
       try {

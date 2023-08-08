@@ -7,16 +7,17 @@ class Order {
     this.status,
     this.tripID,
     this.vehicleID,
-    this.pickup_lat,
-    this.pickup_long,
-    this.drop_lat,
-    this.drop_long,
+    this.silent,
+    this.pickupLat,
+    this.pickupLong,
+    this.dropLat,
+    this.dropLong,
   });
 
-  String? pickup_lat;
-  String? pickup_long;
-  String? drop_lat;
-  String? drop_long;
+  String? pickupLat;
+  String? pickupLong;
+  String? dropLat;
+  String? dropLong;
 
   String? tripID;
   String? customerID;
@@ -25,14 +26,16 @@ class Order {
   String? status;
   double? price;
   String? serviceAreaID;
+  List? silent;
 
   factory Order.fromMap(Map<String, dynamic> json) => Order(
-      price: json["price"], //
+      price: double.parse(json["price"].toString()), //
       vehicleID: json["vehicleId"], //
-      pickup_lat: json["pickup"].values.elementAt(0).toString(), //
-      pickup_long: json["pickup"].values.elementAt(1).toString(), //
-      drop_lat: json["drop"].values.elementAt(0).toString(), //
-      drop_long: json["drop"].values.elementAt(1).toString(), //
+      pickupLat: json["pickup"].values.elementAt(0).toString(), //
+      pickupLong: json["pickup"].values.elementAt(1).toString(), //
+      dropLat: json["drop"].values.elementAt(0).toString(), //
+      dropLong: json["drop"].values.elementAt(1).toString(), //
+      silent: json['silent'] as List,
       tripID: json["_id"], //
       customerID: json["customerId"],
       date: json["createdAt"], //

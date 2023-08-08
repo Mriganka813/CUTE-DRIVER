@@ -3,6 +3,7 @@ class Const {
 
   ///
   static const apiUrl = 'http://65.0.7.20:8004';
+  // static const apiUrl = 'http://192.168.199.66:8004';
   static const socketUrl = 'http://65.0.7.20:8005/';
   // static const apiUrl = 'https://cute-user-backend.onrender.com';
   // static const apiUrl = 'https://cube-backend.onrender.com';
