@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:delivery_boy/constant/constant.dart';
 import 'package:delivery_boy/model/Input/driverMap.dart';
+import 'package:delivery_boy/pages/qr.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -195,6 +196,44 @@ class _HistoryState extends State<History> {
                                           ),
                                         ),
                                       ),
+                                      heightSpace,
+
+                                      !(ride[index].isPaid!)
+                                          ? InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          QRScreen(
+                                                        upiID: ride[index].upi,
+                                                        payeeName: ride[index]
+                                                            .businessName,
+                                                        amount:
+                                                            ride[index].amount,
+                                                      ),
+                                                    ));
+                                              },
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              child: Container(
+                                                height: 40.0,
+                                                width: 100.0,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                  color: primaryColor,
+                                                ),
+                                                child: Text(
+                                                  'Show QR',
+                                                  style: wbuttonWhiteTextStyle,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+
                                       // heightSpace,
                                       // Text('Payment', style: lightGreyStyle),
                                       // Text(

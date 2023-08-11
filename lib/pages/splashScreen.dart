@@ -55,9 +55,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   getLoc() async {
-    // LocationPermission permission;
+    LocationPermission permission;
 
-    // permission = await Geolocator.requestPermission();
+    permission = await Geolocator.requestPermission();
     await Geolocator.checkPermission().then((value) {
       // print(value);
       // print(value.index);

@@ -2,6 +2,7 @@
 import 'package:delivery_boy/constant/custom_snackbar.dart';
 import 'package:delivery_boy/pages/route_map.dart';
 import 'package:delivery_boy/services/page_services/trip_info.dart';
+import 'package:delivery_boy/services/status_change.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,6 +13,7 @@ import 'package:delivery_boy/model/Input/driverMap.dart';
 import 'package:delivery_boy/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../services/const.dart';
 
@@ -32,6 +34,7 @@ class _MapState extends State<Map> {
   TripInfo tripInfo = TripInfo();
   String otp = "";
   bool otpInvisibility = true;
+  StatusChangeService statusChangeService = StatusChangeService();
 
   late bool isPing = false;
   late bool isOtp = false;
@@ -588,7 +591,9 @@ class _MapState extends State<Map> {
         },
       );
 
-      Future.delayed(const Duration(milliseconds: 3000), () {
+      Future.delayed(const Duration(milliseconds: 3000), () async {
+        await statusChangeService.statusChange(
+            widget.driverMap.orderId!, 'delivered');
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Home()),
@@ -743,7 +748,9 @@ class _MapState extends State<Map> {
       setState(() {
         otpInvisibility = false;
       });
-      Future.delayed(const Duration(milliseconds: 2000), () {
+      Future.delayed(const Duration(milliseconds: 2000), () async {
+        await statusChangeService.statusChange(
+            widget.driverMap.orderId!, 'on the way');
         Navigator.pop(context);
       });
     }
@@ -869,6 +876,45 @@ class _MapState extends State<Map> {
                               ),
                               child: Text(
                                 'Arrived',
+                                style: wbuttonWhiteTextStyle,
+                                textScaleFactor: 1.2,
+                              ),
+                            ),
+                          ),
+                        ),
+                        heightSpace,
+                        heightSpace,
+                        Container(
+                          alignment: Alignment.center,
+                          child: InkWell(
+                            onTap: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              int? phoneNo = prefs.getInt('userNumber');
+                              if (phoneNo == null) {
+                                return;
+                              }
+                              var phoneNumber =
+                                  '+91$phoneNo'; // Replace with your desired phone number
+
+                              final uri = Uri(scheme: 'tel', path: phoneNumber);
+
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(uri);
+                              } else {
+                                throw 'Could not launch $uri';
+                              }
+                            },
+                            child: Container(
+                              height: 40.0,
+                              width: width,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                color: primaryColor,
+                              ),
+                              child: Text(
+                                'Call Customer',
                                 style: wbuttonWhiteTextStyle,
                                 textScaleFactor: 1.2,
                               ),

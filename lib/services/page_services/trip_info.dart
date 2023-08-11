@@ -1,4 +1,5 @@
 import 'package:delivery_boy/model/Input/driverMap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/Input/order.dart';
 import '../api_v1.dart';
@@ -42,11 +43,14 @@ class TripInfo {
     }
     print('accept=${response.data}');
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('userNumber', response.data['customerNumber']);
+
     // start socket for very first time to update socket id to database
     IO.Socket socket;
     socket = IO.io(Const.socketUrl, <String, dynamic>{
       'transports': ['websocket'],
-      'query': {'accessToken': '$token', 'role': 'DRIVER'}
+      'query': {'accessToken': 'Bearer $token', 'role': 'DRIVER'}
     });
 
     // success
@@ -66,7 +70,7 @@ class TripInfo {
   Future<List<DriverMap>> getAllorders(String token) async {
     List<DriverMap> orderhistory = [];
     await ApiV1Service.getRequest('/trips/info', token: token).then((value) {
-      // print(value);
+      print(value);
       // print(value.data['trips'][0]['subTrips'][0]['start']['lat']);
 
       final _order = List.generate(

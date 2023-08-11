@@ -18,6 +18,12 @@ class DriverMap {
     this.otp,
     this.driver_lat,
     this.driver_long,
+    this.driverId,
+    this.isPaid,
+    this.upi,
+    this.businessName,
+    this.amount,
+    this.orderId,
   });
 
   String? pickup_lat;
@@ -39,9 +45,15 @@ class DriverMap {
   String? customerSocketID;
   String? driverSocketID;
   String? otp;
+  String? driverId;
+  bool? isPaid;
+  String? upi;
+  String? businessName;
+  int? amount;
+  String? orderId;
 
   factory DriverMap.fromMap(Map<String, dynamic> json) => DriverMap(
-        price: json["price"],
+        price: double.parse(json["price"].toString()),
         vehicleID: json["vehicleId"],
         pickup_lat: json["pickup"].values.elementAt(0).toString(),
         pickup_long: json["pickup"].values.elementAt(1).toString(),
@@ -56,5 +68,12 @@ class DriverMap {
         serviceAreaID: json["serviceAreaId"],
         driverSocketID: json["driverSocket"],
         otp: json["otp"],
+        customerSocketID: json['customerSocket'],
+        driverId: json['driverId'],
+        isPaid: json['isPaid'],
+        upi: json['upi'],
+        businessName: json['businessName'],
+        amount: json['amount'],
+        orderId: json['orderId'],
       );
 }

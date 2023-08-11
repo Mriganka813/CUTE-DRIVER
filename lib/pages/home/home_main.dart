@@ -29,8 +29,8 @@ class _HomeMainState extends State<HomeMain> {
   List<double> _currentLocation = [];
   getLoc() async {
     // loadingDialog();
-    // LocationPermission permission;
-    // permission = await Geolocator.requestPermission();
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition();
     final prefs = await SharedPreferences.getInstance();
     // Navigator.pop(context, true);
@@ -38,7 +38,8 @@ class _HomeMainState extends State<HomeMain> {
     double lng = prefs.getDouble('lng') ?? position.longitude;
 
     setState(() {
-      _currentLocation = [lat, lng];
+      _currentLocation.add(lat);
+      _currentLocation.add(lng);
     });
     return [lat, lng];
   }
